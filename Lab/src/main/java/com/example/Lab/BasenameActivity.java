@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 public class BasenameActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button Add, Clear, BackBtn, BaseresultsBtn;
-    EditText etName, etLogin, etPassword, etDolgnost;
+    Button Add, Clear, Upd, BackBtn, BaseresultsBtn;
+    EditText etId, etName, etLogin, etPassword, etDolgnost;
 
     DBHelper dbHelper;
     SQLiteDatabase database;
@@ -36,12 +36,16 @@ public class BasenameActivity extends AppCompatActivity implements View.OnClickL
         Clear = (Button) findViewById(R.id.clear);
         Clear.setOnClickListener(this);
 
+        Upd = (Button) findViewById(R.id.upd2);
+        Upd.setOnClickListener(this);
+
         BackBtn = (Button) findViewById(R.id.back);
         BackBtn.setOnClickListener(this);
 
-        BaseresultsBtn = (Button) findViewById(R.id.baseresults);
+        BaseresultsBtn = (Button) findViewById(R.id.basename);
         BaseresultsBtn.setOnClickListener(this);
 
+        etId = (EditText) findViewById(R.id.id2);
         etName = (EditText) findViewById(R.id.name);
         etLogin = (EditText) findViewById(R.id.login);
         etPassword = (EditText) findViewById(R.id.password);
@@ -69,6 +73,12 @@ public class BasenameActivity extends AppCompatActivity implements View.OnClickL
                 dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
                 TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+                TextView outputId = new TextView(this);
+                params.weight = 1.0f;
+                outputId.setLayoutParams(params);
+                outputId.setText(cursor.getString(idIndex));
+                dbOutputRow.addView(outputId);
 
                 TextView outputName = new TextView(this);
                 params.weight = 5.0f;
@@ -118,7 +128,7 @@ public class BasenameActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 break;
 
-            case R.id.baseresults:
+            case R.id.basename:
                 Intent intent2 = new Intent(this, AdminActivity.class);
                 startActivity(intent2);
                 break;
@@ -137,6 +147,23 @@ public class BasenameActivity extends AppCompatActivity implements View.OnClickL
                 contentValues.put(DBHelper.KEY_DOLGNOST, dolgnost);
 
                 database.insert(DBHelper.TABLE_USERS, null, contentValues);
+                UpdateTable();
+                break;
+
+            case R.id.upd2:
+                String name2 = etName.getText().toString();
+                String login2 = etLogin.getText().toString();
+                String password2 = etPassword.getText().toString();
+                String dolgnost2 = etDolgnost.getText().toString();
+
+                contentValues = new ContentValues();
+
+                contentValues.put(DBHelper.KEY_NAME, name2);
+                contentValues.put(DBHelper.KEY_LOGIN, login2);
+                contentValues.put(DBHelper.KEY_PASSWORD, password2);
+                contentValues.put(DBHelper.KEY_DOLGNOST, dolgnost2);
+
+                database.update(DBHelper.TABLE_USERS, contentValues, DBHelper.KEY_ID_USER + " = ?", new String[]{etId.getText().toString()});
                 UpdateTable();
                 break;
 

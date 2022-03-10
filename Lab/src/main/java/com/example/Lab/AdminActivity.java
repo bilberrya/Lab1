@@ -17,8 +17,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener{
-    Button Add, Clear, BackBtn, BasenameBtn;
-    EditText etName, etService, etResult, etDate, etPrice;
+    Button Add, Clear, Upd, BackBtn, BasenameBtn;
+    EditText etId, etName, etService, etResult, etDate, etPrice;
 
     DBHelper dbHelper;
     SQLiteDatabase database;
@@ -32,19 +32,23 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         Add = (Button) findViewById(R.id.add);
         Add.setOnClickListener(this);
 
+        Upd = (Button) findViewById(R.id.upd);
+        Upd.setOnClickListener(this);
+
         Clear = (Button) findViewById(R.id.clear);
         Clear.setOnClickListener(this);
 
         BackBtn = (Button) findViewById(R.id.back);
         BackBtn.setOnClickListener(this);
 
-        BasenameBtn = (Button) findViewById(R.id.baseresults);
+        BasenameBtn = (Button) findViewById(R.id.basename);
         BasenameBtn.setOnClickListener(this);
 
+        etId = (EditText) findViewById(R.id.id);
         etName = (EditText) findViewById(R.id.name);
-        etService = (EditText) findViewById(R.id.login);
-        etResult = (EditText) findViewById(R.id.password);
-        etDate = (EditText) findViewById(R.id.dolgnost);
+        etService = (EditText) findViewById(R.id.service);
+        etResult = (EditText) findViewById(R.id.result);
+        etDate = (EditText) findViewById(R.id.date);
         etPrice = (EditText) findViewById(R.id.price);
 
         dbHelper = new DBHelper(this);
@@ -70,6 +74,12 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 dbOutputRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
                 TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+                TextView outputId = new TextView(this);
+                params.weight = 1.0f;
+                outputId.setLayoutParams(params);
+                outputId.setText(cursor.getString(idIndex));
+                dbOutputRow.addView(outputId);
 
                 TextView outputName = new TextView(this);
                 params.weight = 5.0f;
@@ -125,7 +135,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
 
-            case R.id.baseresults:
+            case R.id.basename:
                 Intent intent2 = new Intent(this, BasenameActivity.class);
                 startActivity(intent2);
                 break;
@@ -146,6 +156,25 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 contentValues.put(DBHelper.KEY_PRICE, price);
 
                 database.insert(DBHelper.TABLE_RESULTS, null, contentValues);
+                UpdateTable();
+                break;
+
+            case R.id.upd:
+                String name2 = etName.getText().toString();
+                String service2 = etService.getText().toString();
+                String result2 = etResult.getText().toString();
+                String date2 = etDate.getText().toString();
+                String price2 = etPrice.getText().toString();
+
+                contentValues = new ContentValues();
+
+                contentValues.put(DBHelper.KEY_NAME2, name2);
+                contentValues.put(DBHelper.KEY_SERVICE, service2);
+                contentValues.put(DBHelper.KEY_RESULT, result2);
+                contentValues.put(DBHelper.KEY_DATE, date2);
+                contentValues.put(DBHelper.KEY_PRICE, price2);
+
+                database.update(DBHelper.TABLE_RESULTS, contentValues, DBHelper.KEY_ID_RESULT + " = ?", new String[]{etId.getText().toString()});
                 UpdateTable();
                 break;
 

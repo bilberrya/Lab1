@@ -19,9 +19,24 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/add"
         app:layout_constraintEnd_toStartOf="@+id/login"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/id2"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <EditText
+        android:id="@+id/id2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:background="#FFFFFF"
+        android:hint="id"
+        android:minHeight="48dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/add"
+        app:layout_constraintEnd_toStartOf="@+id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/login"
@@ -55,7 +70,7 @@
 
     <EditText
         android:id="@+id/dolgnost"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
@@ -72,13 +87,15 @@
         android:id="@+id/add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
         android:backgroundTint="#03816E"
         android:insetLeft="6dp"
         android:insetRight="6dp"
         android:text="Добавить"
         android:textColor="#CAF0F4"
         app:layout_constraintBottom_toTopOf="@+id/output3"
-        app:layout_constraintEnd_toStartOf="@+id/clear"
+        app:layout_constraintEnd_toStartOf="@+id/upd2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -86,6 +103,8 @@
         android:id="@+id/clear"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
         android:backgroundTint="#03816E"
         android:insetLeft="6dp"
         android:insetRight="6dp"
@@ -94,8 +113,25 @@
         app:layout_constraintBottom_toTopOf="@+id/output3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/upd2"
+        app:layout_constraintTop_toBottomOf="@+id/dolgnost" />
+
+    <Button
+        android:id="@+id/upd2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="#03816E"
+        android:insetLeft="6dp"
+        android:insetRight="6dp"
+        android:text="Редактировать"
+        android:textColor="#CAF0F4"
+        app:layout_constraintBottom_toTopOf="@+id/output3"
+        app:layout_constraintEnd_toStartOf="@+id/clear"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/add"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
+        app:layout_constraintTop_toBottomOf="@+id/dolgnost" />
 
     <TableLayout
         android:id="@+id/output3"
@@ -147,12 +183,12 @@
         android:text="Назад"
         android:textColor="#CAF0F4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/baseresults"
+        app:layout_constraintEnd_toStartOf="@+id/basename"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/output3" />
 
     <Button
-        android:id="@+id/baseresults"
+        android:id="@+id/basename"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
