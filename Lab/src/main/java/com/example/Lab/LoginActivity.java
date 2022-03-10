@@ -2,12 +2,16 @@ package com.example.Lab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -45,11 +49,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     int passwordIndex = logCursor.getColumnIndex(DBHelper.KEY_PASSWORD);
                     int dolgnost = logCursor.getColumnIndex(DBHelper.KEY_DOLGNOST);
                     do {
-                        if((loginField.getText().toString().equals(logCursor.getString(userIndex))) && (passwordField.getText().toString().equals(logCursor.getString(passwordIndex))) && (logCursor.getString(dolgnost).equals("admin"))){
+                        if ((loginField.getText().toString().equals(logCursor.getString(userIndex))) && (passwordField.getText().toString().equals(logCursor.getString(passwordIndex))) && (logCursor.getString(dolgnost).equals("admin"))) {
                             startActivity(new Intent(this, AdminActivity.class));
                             logged = true;
-                        }
-                        else if ((loginField.getText().toString().equals(logCursor.getString(userIndex))) && (passwordField.getText().toString().equals(logCursor.getString(passwordIndex)))) {
+                        } else if ((loginField.getText().toString().equals(logCursor.getString(userIndex))) && (passwordField.getText().toString().equals(logCursor.getString(passwordIndex)))) {
                             startActivity(new Intent(this, UserActivity.class));
                             logged = true;
                         }
