@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 boolean logged = false;
                 if (logCursor.moveToFirst()) {
                     int userIndex = logCursor.getColumnIndex(DBHelper.KEY_LOGIN);
+                    int nameIndex = logCursor.getColumnIndex(DBHelper.KEY_NAME);
                     int passwordIndex = logCursor.getColumnIndex(DBHelper.KEY_PASSWORD);
                     int dolgnost = logCursor.getColumnIndex(DBHelper.KEY_DOLGNOST);
                     do {
@@ -52,7 +53,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             startActivity(new Intent(this, AdminActivity.class));
                             logged = true;
                         } else if ((loginField.getText().toString().equals(logCursor.getString(userIndex))) && (passwordField.getText().toString().equals(logCursor.getString(passwordIndex))) && (logCursor.getString(dolgnost).equals("patient"))) {
-                            startActivity(new Intent(this, UserActivity.class));
+                            Intent intent = new Intent(this, UserActivity.class);
+                            intent.putExtra("name", logCursor.getString(nameIndex));
+                            startActivity(intent);
                             logged = true;
                         }
                     } while (logCursor.moveToNext());

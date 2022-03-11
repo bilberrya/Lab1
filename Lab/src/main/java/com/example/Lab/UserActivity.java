@@ -22,6 +22,8 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     DBHelper dbHelper;
     SQLiteDatabase database;
 
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,14 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper = new DBHelper(this);
         database = dbHelper.getWritableDatabase();
 
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+
         UpdateTable();
     }
 
     public void UpdateTable() {
-        Cursor cursor = database.query(DBHelper.TABLE_RESULTS, null, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelper.TABLE_RESULTS, null, DBHelper.KEY_NAME2 + " = ?", new String[]{name}, null, null, null);
 
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID_RESULT);
