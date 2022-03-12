@@ -4,4 +4,17 @@
     <string name="click">Click</string>
     <string name="baget">Bonjour le monde!</string>
     <string name="Switch">Switch</string>
+
+    <string-array name ="filtr">
+        <item>Фильтр</item>
+        <item>Положительные</item>
+        <item>Отрицательные</item>
+    </string-array>
+
+    <string-array name ="sortir">
+        <item>Сортировка</item>
+        <item>Дата: по возрастанию</item>
+        <item>Дата: по убыванию</item>
+    </string-array>
 </resources>
+
